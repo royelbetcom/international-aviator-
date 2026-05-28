@@ -251,6 +251,15 @@ body{font-family:'Lato',sans-serif;background:#000000;min-height:100vh;overflow-
 .rd-ico{font-size:18px;line-height:1;margin-bottom:3px;}
 .rd-amt{font-family:'Cinzel',serif;font-size:9px;font-weight:700;color:#ffcc00;}
 .rd-claimed{position:absolute;top:3px;right:3px;font-size:10px;}
+/* new claim action section - consistent with card style */
+.reward-claim-action{margin:0 16px 16px 16px;background:rgba(0,0,0,0.2);border-radius:12px;padding:12px 16px;border:1px solid rgba(255,204,0,0.15);text-align:center;}
+.reward-claim-action .claim-today-amount{font-family:'Cinzel',serif;font-size:18px;font-weight:900;color:#ffcc00;margin-bottom:8px;}
+.reward-claim-action .claim-today-label{font-size:11px;color:rgba(255,255,255,0.5);letter-spacing:1px;margin-bottom:12px;}
+.reward-claim-action .claim-btn{background:linear-gradient(135deg,#ccaa00,#ffcc00);border:none;border-radius:40px;padding:12px 20px;font-family:'Cinzel',serif;font-size:14px;font-weight:700;color:#0d0500;cursor:pointer;width:100%;transition:all 0.2s;margin-top:6px;box-shadow:0 4px 15px rgba(0,0,0,0.2);}
+.reward-claim-action .claim-btn:hover{transform:translateY(-2px);filter:brightness(1.05);}
+.reward-claim-action .timer-text{font-family:'Share Tech Mono',monospace;font-size:13px;color:#00ff88;margin-top:8px;}
+.reward-claim-action .all-claimed-msg{color:#00ff88;font-size:12px;}
+.reward-claim-action.disabled{opacity:0.6;}
 .games-grid{display:grid;grid-template-columns:1fr;gap:12px;padding:0 16px 14px;}
 .game-card{border-radius:12px;overflow:hidden;cursor:pointer;transition:all 0.3s;position:relative;}
 .game-card:hover{transform:translateY(-3px);box-shadow:0 8px 25px rgba(0,0,0,0.7);}
@@ -618,6 +627,8 @@ input::placeholder{color:rgba(253,246,227,0.18);}
         <div class="reward-streak" id="rewardStreak">Day 1</div>
       </div>
       <div class="reward-days" id="rewardDays"></div>
+      <!-- NEW action section for claim button & timer (fully visible) -->
+      <div id="rewardClaimAction" class="reward-claim-action"></div>
     </div>
     <div class="tx-card" id="transactionHistoryCard">
       <div class="tx-header">
@@ -1414,6 +1425,7 @@ window.initDailyRewardListener = function(uid) {
 
 function renderRewardDaysUI(rewardData) {
   const container = document.getElementById('rewardDays');
+  const actionContainer = document.getElementById('rewardClaimAction');
   if (!container) return;
   const currentDay = rewardData.currentDay || 1;
   const claimed = rewardData.claimedDays || {};
@@ -1442,19 +1454,67 @@ function renderRewardDaysUI(rewardData) {
   container.innerHTML = html;
   const streakSpan = document.getElementById('rewardStreak');
   if (streakSpan) streakSpan.innerText = `Day ${currentDay}`;
-  // update timer display
-  if (!canClaimToday && lastClaim > 0) {
-    const nextAvailable = new Date(lastClaim + 24 * 60 * 60 * 1000);
-    const diff = nextAvailable - now;
-    if (diff > 0) {
-      const hours = Math.floor(diff / (1000 * 60 * 60));
-      const mins = Math.floor((diff % (3600000)) / 60000);
-      document.getElementById('rewardStreak').innerHTML = `Next in ${hours}h ${mins}m`;
+  
+  // Update claim action area (visible button, timer, amount)
+  if (actionContainer) {
+    const isClaimedToday = claimed[`day${currentDay}`] === true;
+    const readyToClaim = (!isClaimedToday && canClaimToday);
+    if (currentDay <= 7 && !isClaimedToday && readyToClaim) {
+      const rewardAmount = REWARD_AMOUNTS[currentDay];
+      actionContainer.innerHTML = `
+        <div class="claim-today-amount">🎁 ৳${rewardAmount.toLocaleString('en')}</div>
+        <div class="claim-today-label">Daily Reward available! Claim now</div>
+        <button class="claim-btn" onclick="openRewardClaimModal(${currentDay}, ${rewardAmount})">💰 CLAIM REWARD</button>
+      `;
+      actionContainer.classList.remove('disabled');
+    } else if (isClaimedToday && currentDay <= 7) {
+      // Show timer for next available day if any day left
+      let nextDay = -1;
+      for (let i = currentDay+1; i<=7; i++) {
+        if (!claimed[`day${i}`]) { nextDay = i; break; }
+      }
+      if (nextDay !== -1 && lastClaim > 0) {
+        const nextAvailable = new Date(lastClaim + 24 * 60 * 60 * 1000);
+        const diff = nextAvailable - now;
+        if (diff > 0) {
+          const hours = Math.floor(diff / (1000 * 60 * 60));
+          const mins = Math.floor((diff % (3600000)) / 60000);
+          actionContainer.innerHTML = `
+            <div class="claim-today-label">⏳ Next reward available in:</div>
+            <div class="timer-text">${hours}h ${mins}m</div>
+            <div style="font-size:10px; color:rgba(255,255,255,0.4); margin-top:6px;">Day ${nextDay} unlocks after timer</div>
+          `;
+        } else {
+          actionContainer.innerHTML = `<div class="all-claimed-msg">✨ Next reward will be available soon! ✨</div>`;
+        }
+      } else if (nextDay === -1) {
+        actionContainer.innerHTML = `<div class="all-claimed-msg">🎉 Congratulations! You've claimed all rewards! 🎉</div>`;
+      } else {
+        actionContainer.innerHTML = `<div class="all-claimed-msg">✅ Today's reward already claimed. Come back tomorrow!</div>`;
+      }
+      actionContainer.classList.add('disabled');
     } else {
-      document.getElementById('rewardStreak').innerHTML = `Day ${currentDay}`;
+      // locked due to time or day not reached
+      const rewardAmount = REWARD_AMOUNTS[currentDay];
+      if (lastClaim > 0 && !canClaimToday) {
+        const nextAvailable = new Date(lastClaim + 24 * 60 * 60 * 1000);
+        const diff = nextAvailable - now;
+        if (diff > 0) {
+          const hours = Math.floor(diff / (1000 * 60 * 60));
+          const mins = Math.floor((diff % (3600000)) / 60000);
+          actionContainer.innerHTML = `
+            <div class="claim-today-label">🔒 Next reward (Day ${currentDay}) in:</div>
+            <div class="timer-text">${hours}h ${mins}m</div>
+            <div class="claim-today-amount" style="font-size:14px;">৳${rewardAmount.toLocaleString('en')}</div>
+          `;
+        } else {
+          actionContainer.innerHTML = `<div class="claim-today-label">🎁 Day ${currentDay} will be available soon!</div><div class="claim-today-amount">৳${rewardAmount.toLocaleString('en')}</div>`;
+        }
+      } else {
+        actionContainer.innerHTML = `<div class="claim-today-label">🎁 Day ${currentDay} reward</div><div class="claim-today-amount">৳${rewardAmount.toLocaleString('en')}</div><div class="timer-text" style="color:#ffcc00;">Complete today's claim to unlock next!</div>`;
+      }
+      actionContainer.classList.add('disabled');
     }
-  } else {
-    document.getElementById('rewardStreak').innerHTML = `Day ${currentDay} · Ready!`;
   }
 }
 
