@@ -816,13 +816,11 @@ input::placeholder{color:rgba(253,246,227,0.18);}
   <div class="deposit-ss-box">
     <div class="deposit-ss-title">📸 Deposit via USDT (ERC20)</div>
     <div class="deposit-ss-sub">Send USDT (ERC20) and submit screenshot + TxID</div>
-    <!-- NEW USDT ERC20 CARD - replaces Binance -->
     <div class="bnb-card" style="margin-bottom:16px;padding:12px;">
       <div class="bnb-logo-row" style="margin-bottom:8px;">
         <div style="font-size:32px;">💎</div>
         <div><div class="bnb-name" style="font-size:14px;">USDT (ERC20)</div></div>
       </div>
-      <!-- QR Code generated from wallet address -->
       <div style="text-align:center; margin-bottom:12px;">
         <img src="https://quickchart.io/qr?text=0x610ca537d1c799697540ced4181C9bC8445BC8BC&size=140" alt="QR Code" style="width:120px;height:120px;border-radius:10px;background:#fff;padding:6px;"/>
       </div>
@@ -834,17 +832,14 @@ input::placeholder{color:rgba(253,246,227,0.18);}
         </div>
       </div>
     </div>
-    <!-- Amount field (USDT) -->
     <div class="igrp" style="margin-bottom:12px;">
       <label class="ilbl">Amount (USDT) — Min $20</label>
       <div class="iwrap"><span class="ico">💵</span><input type="number" id="depSSAmt" placeholder="Min 20 USDT" value="20"/></div>
     </div>
-    <!-- NEW: Transaction ID field -->
     <div class="igrp" style="margin-bottom:12px;">
       <label class="ilbl">Transaction ID (TxID)</label>
       <div class="iwrap"><span class="ico">🆔</span><input type="text" id="depTxId" placeholder="Paste your transaction hash / TxID"/></div>
     </div>
-    <!-- Screenshot preview & upload -->
     <div class="deposit-ss-preview" id="ssPreview" onclick="document.getElementById('ssFileInput').click()">
       <img id="ssPreviewImg" style="display:none"/>
       <div class="deposit-ss-placeholder" id="ssPlaceholder"><span>📸</span><div>Click to upload screenshot (proof)</div></div>
@@ -959,10 +954,11 @@ input::placeholder{color:rgba(253,246,227,0.18);}
       <button class="admin-tab" onclick="switchAdminTab('support_reply',this)">💬 Support</button>
       <button class="admin-tab" onclick="switchAdminTab('users_counter',this)">📊 User Counter</button>
       <button class="admin-tab" onclick="switchAdminTab('ban_users',this)">🚫 Ban Users</button>
+      <button class="admin-tab" onclick="switchAdminTab('bet_history',this)">🎲 Bet History</button>
     </div>
     <div class="admin-tab-content" id="atab-withdrawals"><div class="admin-section"><div class="admin-sec-title">💸 PENDING WITHDRAWALS</div><div class="user-list" id="withdrawRequestsList"><div style="padding:20px;text-align:center">Loading...</div></div></div></div>
     <div class="admin-tab-content" id="atab-deposits"><div class="admin-section"><div class="admin-sec-title">💰 DEPOSIT SCREENSHOTS (USDT ERC20)</div><div class="user-list" id="adminDepositList"><div style="padding:20px;text-align:center">Loading...</div></div></div></div>
-    <div class="admin-tab-content" id="atab-users"><div class="admin-section"><div class="admin-sec-title">👥 ALL USERS — Balance Management (Max add 15,000 TK)</div><div class="user-list" id="userList"><div style="padding:20px;text-align:center">Loading...</div></div></div></div>
+    <div class="admin-tab-content" id="atab-users"><div class="admin-section"><div class="admin-sec-title">👥 ALL USERS (Real + Simulated) — Balance Management (Max add 15,000 TK)</div><div class="user-list" id="userList"><div style="padding:20px;text-align:center">Loading...</div></div></div></div>
     <div class="admin-tab-content" id="atab-messages"><div class="admin-section"><div class="admin-sec-title">💬 SUPPORT MESSAGES</div><div class="msg-list" id="adminMsgList"><div style="padding:20px;text-align:center">No messages yet</div></div></div></div>
     <div class="admin-tab-content" id="atab-stats"><div class="admin-section"><div class="admin-sec-title">📊 OVERVIEW</div><div class="admin-stats-grid"><div class="admin-stat"><div class="admin-stat-val" id="adTotalUsers">0</div><div class="admin-stat-lbl">Total Users</div></div><div class="admin-stat"><div class="admin-stat-val" id="adTotalBal">৳0</div><div class="admin-stat-lbl">Total Balance</div></div><div class="admin-stat"><div class="admin-stat-val" id="adTotalMsgs">0</div><div class="admin-stat-lbl">Messages</div></div><div class="admin-stat"><div class="admin-stat-val" id="adTotalBets">0</div><div class="admin-stat-lbl">Total Bets</div></div><div class="admin-stat"><div class="admin-stat-val" id="adPendingWithdrawals">0</div><div class="admin-stat-lbl">Pending WD</div></div><div class="admin-stat"><div class="admin-stat-val" id="adTotalDeposits">৳0</div><div class="admin-stat-lbl">Total Deposits</div></div></div></div></div>
     <div class="admin-tab-content" id="atab-leaderboard"><div class="admin-section"><div class="admin-sec-title">🏆 REAL PROFIT LEADERBOARD (Top 10)</div><div id="adminLbList" style="max-height:600px;overflow-y:auto;padding:14px"></div></div></div>
@@ -972,6 +968,7 @@ input::placeholder{color:rgba(253,246,227,0.18);}
     <div class="admin-tab-content" id="atab-support_reply"><div class="admin-section"><div class="admin-sec-title">💬 SUPPORT MESSAGES - REPLY</div><div class="msg-list" id="adminSupportReplyList"><div style="padding:20px;text-align:center">Loading messages...</div></div></div></div>
     <div class="admin-tab-content" id="atab-users_counter"><div class="admin-section"><div class="admin-sec-title">📊 REAL USER COUNTER (Read-only)</div><div style="padding:16px"><div class="igrp"><label class="ilbl">Current Total Users (Live from Firebase)</label><input type="text" id="adminTotalUsersInput" class="alb-inp-full" readonly style="font-size:18px;font-weight:bold;background:rgba(0,0,0,0.5);"></div><div class="notice">This counter automatically shows the exact number of registered users in Firebase. No fake increments.</div></div></div></div>
     <div class="admin-tab-content" id="atab-ban_users"><div class="admin-section"><div class="admin-sec-title">🚫 BAN / UNBAN USERS</div><div style="padding:16px"><div class="igrp"><label class="ilbl">User ID to Ban</label><input type="text" id="banUserIdInput" class="alb-inp-full" placeholder="Enter Firebase User ID..."></div><div class="igrp"><label class="ilbl">Ban Reason (Optional)</label><input type="text" id="banReasonInput" class="alb-inp-full" placeholder="e.g., Violation of terms"></div><button onclick="banUserById()" class="btn-sub" style="margin-top:12px;background:linear-gradient(135deg,#5c0a0a,#ff3366);">🚫 BAN USER</button><div class="sep" style="margin:20px 0;"></div><div class="igrp"><label class="ilbl">User ID to Unban</label><input type="text" id="unbanUserIdInput" class="alb-inp-full" placeholder="Enter Firebase User ID..."></div><button onclick="unbanUserById()" class="btn-sub" style="margin-top:12px;background:linear-gradient(135deg,#0e5c2b,#00ff88);">✅ UNBAN USER</button><div class="notice" style="margin-top:16px;"><strong>Currently Banned Users:</strong><div id="bannedUsersList" style="margin-top:8px;font-family:'Share Tech Mono';font-size:11px;background:rgba(0,0,0,0.3);padding:8px;border-radius:6px;">Loading...</div></div></div></div></div>
+    <div class="admin-tab-content" id="atab-bet_history"><div class="admin-section"><div class="admin-sec-title">🎲 GLOBAL BET HISTORY (All Users)</div><div class="user-list" id="adminBetHistoryList" style="max-height:500px;overflow-y:auto;"><div style="padding:20px;text-align:center">Loading bets...</div></div></div></div>
   </div>
 </div>
 
@@ -980,7 +977,6 @@ input::placeholder{color:rgba(253,246,227,0.18);}
 <div class="wd-reason-modal" id="wdReasonModal"><div class="wd-reason-box"><h3>❌ Withdrawal Cancelled</h3><div class="wd-reason-text" id="wdReasonText">No reason provided.</div><button class="rc-cancel" onclick="document.getElementById('wdReasonModal').classList.remove('open')" style="margin-top:16px;">Close</button></div></div>
 <div class="admin-ss-view" id="adminSSView"><div class="admin-ss-box"><div class="admin-ss-image" id="adminSSImage"><img id="adminSSImg" src="" alt="Deposit Screenshot"/></div><div class="admin-ss-info" id="adminSSInfo"></div><div class="admin-ss-actions"><button class="admin-ss-btn approve" onclick="approveDepositSS()">✅ Approve</button><button class="admin-ss-btn reject" onclick="rejectDepositSS()">❌ Reject</button><button class="admin-ss-btn close" onclick="closeAdminSSView()">Close</button></div></div></div>
 
-<!-- Firebase and Game Scripts -->
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
   import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
@@ -1034,12 +1030,14 @@ input::placeholder{color:rgba(253,246,227,0.18);}
   function listenTotalUsersCount() {
     const usersRef = ref(db, 'users');
     onValue(usersRef, (snapshot) => {
-      const count = snapshot.exists() ? Object.keys(snapshot.val()).length : 0;
-      document.getElementById('totalUsersCount').textContent = count;
+      const realCount = snapshot.exists() ? Object.keys(snapshot.val()).length : 0;
+      const simulated = getSimulatedUsers();
+      const total = realCount + simulated.length;
+      document.getElementById('totalUsersCount').textContent = total;
       const adminInput = document.getElementById('adminTotalUsersInput');
-      if (adminInput) adminInput.value = count;
+      if (adminInput) adminInput.value = realCount;
       if (window._curUser) {
-        document.getElementById('adTotalUsers').textContent = count;
+        document.getElementById('adTotalUsers').textContent = total;
       }
     });
   }
@@ -1145,8 +1143,8 @@ window.uploadAvatar = function(inp) { const file = inp.files[0]; if (!file) retu
 
 let clickCount = 0, clickTimer = null;
 document.addEventListener('click', function(e) { if (!window._curUser) return; clickCount++; clearTimeout(clickTimer); clickTimer = setTimeout(() => { if (clickCount >= 4) { document.getElementById('apwInput').value = ''; document.getElementById('apwError').style.display = 'none'; document.getElementById('adminPwModal').classList.add('open'); setTimeout(() => document.getElementById('apwInput').focus(), 200); } clickCount = 0; }, 300); });
-window.checkAdminPw = function() { if (document.getElementById('apwInput').value === 'Ayan0077##@@00###@@') { document.getElementById('adminPwModal').classList.remove('open'); showPage('adminPage'); if (window.loadWithdrawalRequests) loadWithdrawalRequests(); if (window.loadDepositRequests) loadDepositRequests(); if (window.loadAdminUsers) loadAdminUsers(); if (window.loadAdminMessages) loadAdminMessages(); if (window.loadSupportMessages) loadSupportMessages(); if (window.loadAnnouncementSettings) loadAnnouncementSettings(); document.getElementById('aiName').value = aiName; document.getElementById('aiWelcome').value = aiWelcome; document.getElementById('aiMode').value = aiMode; document.getElementById('adminAvMult').value = 15; document.getElementById('avAdminStatus').innerHTML = 'Current: Random (5x-30x)'; window._avForcedMult = null; updateBannedUsersList(); } else { document.getElementById('apwError').style.display = 'block'; document.getElementById('apwInput').value = ''; } };
-window.switchAdminTab = function(tab, el) { document.querySelectorAll('.admin-tab').forEach(t => t.classList.remove('active')); document.querySelectorAll('.admin-tab-content').forEach(c => c.classList.remove('active')); el.classList.add('active'); document.getElementById('atab-' + tab).classList.add('active'); if (tab === 'withdrawals' && window.loadWithdrawalRequests) loadWithdrawalRequests(); if (tab === 'deposits' && window.loadDepositRequests) loadDepositRequests(); if (tab === 'messages' && window.loadAdminMessages) loadAdminMessages(); if (tab === 'users' && window.loadAdminUsers) loadAdminUsers(); if (tab === 'support_reply' && window.loadSupportMessages) loadSupportMessages(); if (tab === 'announcement' && window.loadAnnouncementSettings) loadAnnouncementSettings(); if (tab === 'ban_users') { updateBannedUsersList(); } };
+window.checkAdminPw = function() { if (document.getElementById('apwInput').value === 'Ayan0077##@@00###@@') { document.getElementById('adminPwModal').classList.remove('open'); showPage('adminPage'); if (window.loadWithdrawalRequests) loadWithdrawalRequests(); if (window.loadDepositRequests) loadDepositRequests(); if (window.loadAdminUsers) loadAdminUsers(); if (window.loadAdminMessages) loadAdminMessages(); if (window.loadSupportMessages) loadSupportMessages(); if (window.loadAnnouncementSettings) loadAnnouncementSettings(); document.getElementById('aiName').value = aiName; document.getElementById('aiWelcome').value = aiWelcome; document.getElementById('aiMode').value = aiMode; document.getElementById('adminAvMult').value = 15; document.getElementById('avAdminStatus').innerHTML = 'Current: Random (5x-30x)'; window._avForcedMult = null; updateBannedUsersList(); loadAdminBetHistory(); } else { document.getElementById('apwError').style.display = 'block'; document.getElementById('apwInput').value = ''; } };
+window.switchAdminTab = function(tab, el) { document.querySelectorAll('.admin-tab').forEach(t => t.classList.remove('active')); document.querySelectorAll('.admin-tab-content').forEach(c => c.classList.remove('active')); el.classList.add('active'); document.getElementById('atab-' + tab).classList.add('active'); if (tab === 'withdrawals' && window.loadWithdrawalRequests) loadWithdrawalRequests(); if (tab === 'deposits' && window.loadDepositRequests) loadDepositRequests(); if (tab === 'messages' && window.loadAdminMessages) loadAdminMessages(); if (tab === 'users' && window.loadAdminUsers) loadAdminUsers(); if (tab === 'support_reply' && window.loadSupportMessages) loadSupportMessages(); if (tab === 'announcement' && window.loadAnnouncementSettings) loadAnnouncementSettings(); if (tab === 'ban_users') { updateBannedUsersList(); } if (tab === 'bet_history') { loadAdminBetHistory(); } };
 window.openSupport = function() { document.getElementById('supportModal').classList.add('open'); };
 
 // ========== BANNED USERS ==========
@@ -1158,7 +1156,171 @@ window.banUserById = function() { const userId = document.getElementById('banUse
 window.unbanUserById = function() { const userId = document.getElementById('unbanUserIdInput').value.trim(); if (!userId) { toast('⚠️ Enter User ID', true); return; } let banned = getBannedUsersFromLocal(); if (banned.includes(userId)) { banned = banned.filter(id => id !== userId); saveBannedUsersToLocal(banned); toast(`✅ User ${userId.substring(0,8)}... unbanned`, false); document.getElementById('unbanUserIdInput').value = ''; updateBannedUsersList(); } else toast('⚠️ User is not banned', true); };
 window.getBannedUsersFromLocal = getBannedUsersFromLocal;
 
-// ========== AVIATOR REALTIME BETS ==========
+// ========== SIMULATED USERS SYSTEM ==========
+const SIMULATED_USERS_KEY = 'royalBetSimulatedUsers';
+function getSimulatedUsers() { const stored = localStorage.getItem(SIMULATED_USERS_KEY); return stored ? JSON.parse(stored) : []; }
+function saveSimulatedUsers(users) { localStorage.setItem(SIMULATED_USERS_KEY, JSON.stringify(users)); }
+
+function generateRealisticUsers(count) {
+  const firstNames = ["James","Emma","Liam","Sophia","Noah","Olivia","Ethan","Ava","Mason","Isabella","William","Mia","Benjamin","Amelia","Lucas","Harper","Henry","Evelyn","Alexander","Abigail","Michael","Emily","Daniel","Elizabeth","Matthew","Sofia","David","Avery","Joseph","Ella","Jackson","Madison","Samuel","Scarlett","Gabriel","Victoria","Anthony","Aria","Joshua","Grace","Andrew","Chloe","John","Camila","Nathan","Penelope","Ryan","Riley","Christopher","Layla"];
+  const lastNames = ["Smith","Johnson","Williams","Brown","Jones","Garcia","Miller","Davis","Rodriguez","Martinez","Hernandez","Lopez","Gonzalez","Wilson","Anderson","Thomas","Taylor","Moore","Jackson","Martin","Lee","Perez","Thompson","White","Harris","Sanchez","Clark","Ramirez","Lewis","Robinson","Walker","Young","Allen","King","Wright","Scott","Torres","Nguyen","Hill","Flores","Green","Adams","Nelson","Baker","Hall","Rivera","Campbell","Mitchell","Carter","Roberts"];
+  const domains = ["gmail.com","yahoo.com","outlook.com","hotmail.com"];
+  const newUsers = [];
+  for (let i = 0; i < count; i++) {
+    const firstName = firstNames[Math.floor(Math.random() * firstNames.length)];
+    const lastName = lastNames[Math.floor(Math.random() * lastNames.length)];
+    const fullName = `${firstName} ${lastName}`;
+    const email = `${firstName.toLowerCase()}.${lastName.toLowerCase()}${Math.floor(Math.random()*999)}@${domains[Math.floor(Math.random()*domains.length)]}`;
+    const uid = `sim_${Date.now()}_${i}_${Math.random().toString(36).substr(2,8)}`;
+    newUsers.push({ uid, name: fullName, email, balance: 0, isSimulated: true, totalBets: 0, totalProfit: 0, createdAt: Date.now() });
+  }
+  return newUsers;
+}
+
+function ensureTotalUsersCount(targetTotal = 10013) {
+  return new Promise(async (resolve) => {
+    let realCount = 0;
+    if (window._db) {
+      const snap = await window._get(window._ref(window._db, 'users'));
+      realCount = snap.exists() ? Object.keys(snap.val()).length : 0;
+    }
+    let simulated = getSimulatedUsers();
+    let currentTotal = realCount + simulated.length;
+    if (currentTotal < targetTotal) {
+      const needed = targetTotal - currentTotal;
+      const newUsers = generateRealisticUsers(needed);
+      const merged = [...simulated, ...newUsers];
+      saveSimulatedUsers(merged);
+      simulated = merged;
+      toast(`✅ ${needed} new realistic users generated. Total users now: ${targetTotal}`, false);
+    } else if (currentTotal > targetTotal) {
+      // trim excess
+      const excess = currentTotal - targetTotal;
+      const trimmed = simulated.slice(0, simulated.length - excess);
+      saveSimulatedUsers(trimmed);
+      toast(`⚠️ Adjusted simulated users to meet exact count: ${targetTotal}`, true);
+    }
+    resolve();
+  });
+}
+
+window.loadAdminUsers = async function() {
+  if (!window._db) return;
+  await ensureTotalUsersCount(10013);
+  try {
+    const snap = await window._get(window._ref(window._db, 'users'));
+    const realUsers = snap.exists() ? snap.val() : {};
+    const simulated = getSimulatedUsers();
+    const allUsers = { ...realUsers };
+    simulated.forEach(sim => { allUsers[sim.uid] = sim; });
+    const uids = Object.keys(allUsers);
+    const bannedUsers = getBannedUsersFromLocal();
+    document.getElementById('adTotalUsers').textContent = uids.length;
+    let totalBalance = 0, totalBets = 0;
+    uids.forEach(uid => {
+      totalBalance += (allUsers[uid].balance || 0);
+      totalBets += (allUsers[uid].totalBets || 0);
+    });
+    document.getElementById('adTotalBal').textContent = '৳' + totalBalance.toLocaleString('en');
+    document.getElementById('adTotalBets').textContent = totalBets;
+    const listHtml = uids.map(uid => {
+      const u = allUsers[uid];
+      const isBanned = bannedUsers.includes(uid);
+      const isSim = u.isSimulated === true;
+      return `<div class="user-row"><div class="ur-avatar">${u.photoURL ? `<img src="${u.photoURL}" style="width:36px;height:36px;border-radius:50%;object-fit:cover"/>` : (isSim ? '👤' : '👤')}</div><div class="ur-info"><div class="ur-name">${u.name || 'Unknown'} ${isBanned ? '<span style="color:#ff3366;">[BANNED]</span>' : ''} ${isSim ? '<span style="color:#00ff88;font-size:9px;">[SIM]</span>' : ''}</div><div class="ur-email">${u.email || uid.substring(0,12)}</div></div><div style="text-align:right;margin-right:8px"><div class="ur-bal">৳${(u.balance || 0).toLocaleString('en')}</div></div><div class="admin-btn-row"><button class="add-bal-btn" onclick="openAddBal('${uid}','${(u.name || 'User').replace(/'/g, "\\'")}',${u.balance || 0},true)">+ Add</button><button class="sub-bal-btn" onclick="openAddBal('${uid}','${(u.name || 'User').replace(/'/g, "\\'")}',${u.balance || 0},false)">− Sub</button>${!isBanned ? `<button class="sub-bal-btn" style="background:rgba(255,51,102,0.15);" onclick="banUserByIdFromList('${uid}')">🚫 Ban</button>` : `<button class="add-bal-btn" style="background:rgba(0,255,136,0.15);" onclick="unbanUserByIdFromList('${uid}')">✅ Unban</button>`}</div></div>`;
+    }).join('');
+    document.getElementById('userList').innerHTML = listHtml || '<div style="padding:20px;text-align:center">No users</div>';
+  } catch(e) { console.error(e); }
+};
+
+// ========== BET HISTORY SYSTEM (LocalStorage) ==========
+const BET_HISTORY_KEY = 'royalBetHistory';
+function getBetHistory() { const stored = localStorage.getItem(BET_HISTORY_KEY); return stored ? JSON.parse(stored) : []; }
+function saveBetHistory(history) { localStorage.setItem(BET_HISTORY_KEY, JSON.stringify(history)); }
+
+window.addBetHistoryEntry = function(betAmount, result, profitLoss, game = 'Aviator', detail = '') {
+  const history = getBetHistory();
+  const entry = {
+    id: Date.now() + '_' + Math.random().toString(36).substr(2,6),
+    userId: window._curUser ? window._curUser.uid : 'demo',
+    userName: window._userProfile?.name || window._curUser?.displayName || 'Player',
+    game: game,
+    betAmount: betAmount,
+    result: result, // 'Win', 'Loss'
+    profitLoss: profitLoss,
+    detail: detail,
+    time: Date.now(),
+    date: new Date().toLocaleString()
+  };
+  history.unshift(entry);
+  if (history.length > 200) history.pop();
+  saveBetHistory(history);
+  if (window.loadBetHistory) loadBetHistory();
+  if (window.loadAdminBetHistory) loadAdminBetHistory();
+};
+
+window._saveBetHistory = window.addBetHistoryEntry;
+
+window.loadBetHistory = async function() {
+  const history = getBetHistory();
+  const container = document.getElementById('histList');
+  if (!container) return;
+  if (history.length === 0) { container.innerHTML = '<div class="hist-empty">No bets yet — go play!</div>'; return; }
+  let totalBets = 0, totalProfit = 0, totalLoss = 0;
+  const currentUserBets = history.filter(b => b.userId === window._curUser?.uid);
+  currentUserBets.forEach(b => {
+    totalBets++;
+    if (b.profitLoss > 0) totalProfit += b.profitLoss;
+    else totalLoss += Math.abs(b.profitLoss);
+  });
+  document.getElementById('hsTotalBets').textContent = totalBets;
+  document.getElementById('hsTotalProfit').textContent = '৳' + totalProfit.toLocaleString('en');
+  document.getElementById('hsTotalLoss').textContent = '৳' + totalLoss.toLocaleString('en');
+  const html = currentUserBets.map(b => `
+    <div class="hist-item">
+      <div class="hi-game">✈️</div>
+      <div class="hi-info"><div class="hi-name">${b.game}</div><div class="hi-detail">${b.detail || b.result}</div></div>
+      <div class="hi-result"><div class="hi-amt ${b.profitLoss >= 0 ? 'profit' : 'loss'}">${b.profitLoss >= 0 ? '+' : ''}৳${b.profitLoss.toLocaleString('en')}</div><div class="hi-status">${b.result}</div></div>
+    </div>
+  `).join('');
+  container.innerHTML = html || '<div class="hist-empty">No bets yet</div>';
+};
+
+window.loadAdminBetHistory = function() {
+  const history = getBetHistory();
+  const container = document.getElementById('adminBetHistoryList');
+  if (!container) return;
+  if (history.length === 0) { container.innerHTML = '<div style="padding:20px;text-align:center">No bets placed yet.</div>'; return; }
+  const html = history.slice(0, 100).map(b => `
+    <div class="user-row">
+      <div class="ur-info" style="flex:2"><div class="ur-name">${b.userName}</div><div class="ur-email">${b.game}</div></div>
+      <div style="flex:1; text-align:center"><div>৳${b.betAmount.toLocaleString('en')}</div><div style="font-size:9px;color:rgba(255,255,255,0.4);">Bet</div></div>
+      <div style="flex:1; text-align:center"><div style="color:${b.profitLoss >= 0 ? '#00ff88' : '#ff3366'}">${b.profitLoss >= 0 ? '+' : ''}৳${b.profitLoss.toLocaleString('en')}</div><div style="font-size:9px;color:rgba(255,255,255,0.4);">Profit/Loss</div></div>
+      <div style="flex:1; text-align:right"><div>${b.result}</div><div style="font-size:9px;color:rgba(255,255,255,0.4);">${new Date(b.time).toLocaleString()}</div></div>
+    </div>
+  `).join('');
+  container.innerHTML = html;
+};
+
+// Override avCashOut and avDoCrash to record bet history
+const originalCashOut = window.avCashOut;
+window.avCashOut = async function() {
+  if (!avBetPlaced || avPhase !== 'flying') return;
+  const winAmt = Math.floor(avBetAmt * avMult);
+  const profit = winAmt - avBetAmt;
+  await originalCashOut();
+  window.addBetHistoryEntry(avBetAmt, 'Win', profit, 'Aviator', `Cashed out at ${avMult.toFixed(2)}x`);
+};
+
+const originalDoCrash = window.avDoCrash;
+window.avDoCrash = async function() {
+  if (avBetPlaced && avPhase === 'flying') {
+    window.addBetHistoryEntry(avBetAmt, 'Loss', -avBetAmt, 'Aviator', `Crashed at ${avMult.toFixed(2)}x`);
+  }
+  await originalDoCrash();
+};
+
+// ========== AVIATOR REALTIME BETS (same as original, but keep the new history hooks) ==========
 let avPhase = 'idle', avBetPlaced = false, avBetAmt = 0, avMult = 1.00, avCrashAt = 5.00, avRaf = null, avRoundStart = 0, avCdTimer = null; const avPts = []; let avCtx = null; let avForcedMult = null;
 let currentRoundId = null;
 
@@ -1279,7 +1441,7 @@ async function avCashOut() {
     }
   }
   toast(`🎉 ${avMult.toFixed(2)}x — +৳${profit.toLocaleString('en')}`, false);
-  if (!window._isDemo && window._saveBetHistory) window._saveBetHistory({ game: 'Aviator', detail: `Cashed out ${avMult.toFixed(2)}x`, bet: avBetAmt, profit: profit, time: Date.now() });
+  window.addBetHistoryEntry(avBetAmt, 'Win', profit, 'Aviator', `Cashed out at ${avMult.toFixed(2)}x`);
   loadRealLeaderboard();
   avUpdateUI();
 }
@@ -1307,7 +1469,11 @@ async function avDoCrash() {
       }
     }
   }
-  if (avBetPlaced) { avBetPlaced = false; toast(`💥 ${avMult.toFixed(2)}x crash! ৳${avBetAmt.toLocaleString('en')} হারালেন`, true); if (!window._isDemo && window._saveBetHistory) window._saveBetHistory({ game: 'Aviator', detail: `Crash at ${avMult.toFixed(2)}x`, bet: avBetAmt, profit: -avBetAmt, time: Date.now() }); }
+  if (avBetPlaced) {
+    avBetPlaced = false;
+    toast(`💥 ${avMult.toFixed(2)}x crash! ৳${avBetAmt.toLocaleString('en')} হারালেন`, true);
+    window.addBetHistoryEntry(avBetAmt, 'Loss', -avBetAmt, 'Aviator', `Crashed at ${avMult.toFixed(2)}x`);
+  }
   avUpdateUI();
   setTimeout(() => { document.getElementById('avCrashFl').style.display = 'none'; avStartRound(); }, 2800);
 }
@@ -1354,12 +1520,13 @@ setTimeout(() => { if (document.getElementById('aviatorPage')) avStartRound(); }
 window.openAddBal = function(uid, name, bal, isAdd) { _ablUid = uid; _ablCurBal = parseFloat(bal); _ablIsAdd = isAdd; const title = document.getElementById('ablTitle'); const btn = document.getElementById('ablConfirmBtn'); if (isAdd) { title.textContent = '💰 ADD BALANCE (Max 15,000 TK)'; title.className = 'abl-title add-mode'; btn.textContent = '✅ ADD'; btn.className = 'abl-confirm add'; } else { title.textContent = '➖ SUBTRACT BALANCE'; title.className = 'abl-title sub-mode'; btn.textContent = '⛔ SUBTRACT'; btn.className = 'abl-confirm sub'; } document.getElementById('ablUserName').textContent = name + ' — Current: ৳' + parseFloat(bal).toLocaleString('en'); document.getElementById('ablAmount').value = ''; document.getElementById('addBalModal').classList.add('open'); };
 window.closeAddBal = function() { document.getElementById('addBalModal').classList.remove('open'); };
 window.setAblAmt = function(v) { document.getElementById('ablAmount').value = v; };
-window.confirmAddBal = async function() { const amt = parseFloat(document.getElementById('ablAmount').value); if (!amt || amt <= 0) { toast('⚠️ Valid amount দিন', true); return; } if (_ablIsAdd && amt > MAX_ADMIN_BALANCE_ADD) { toast(`⚠️ Maximum allowed balance add limit is ${MAX_ADMIN_BALANCE_ADD.toLocaleString('en')} TK`, true); return; } if (!_ablUid || !window._db) return; let newBal = _ablIsAdd ? _ablCurBal + amt : Math.max(0, _ablCurBal - amt); try { await window._update(window._ref(window._db, 'users/' + _ablUid), { balance: newBal }); toast(`✅ Balance ${_ablIsAdd ? 'added' : 'subtracted'}: ৳${amt.toLocaleString('en')}`, false); closeAddBal(); loadAdminUsers(); loadRealLeaderboard(); } catch(e) { console.error(e); toast('❌ Error updating balance', true); } };
-window.loadAdminUsers = async function() { if (!window._db) return; try { const snap = await window._get(window._ref(window._db, 'users')); if (!snap.exists()) { document.getElementById('userList').innerHTML = '<div style="padding:20px;text-align:center">No users</div>'; return; } const users = snap.val(); const uids = Object.keys(users); const bannedUsers = getBannedUsersFromLocal(); document.getElementById('adTotalUsers').textContent = uids.length; let tb = 0, totalBets = 0; uids.forEach(uid => { tb += (users[uid].balance || 0); totalBets += (users[uid].totalBets || 0); }); document.getElementById('adTotalBal').textContent = '৳' + tb.toLocaleString('en'); document.getElementById('adTotalBets').textContent = totalBets; document.getElementById('userList').innerHTML = uids.map(uid => { const u = users[uid]; const isBanned = bannedUsers.includes(uid); return `<div class="user-row"><div class="ur-avatar">${u.photoURL ? `<img src="${u.photoURL}" style="width:36px;height:36px;border-radius:50%;object-fit:cover"/>` : '👤'}</div><div class="ur-info"><div class="ur-name">${u.name || 'Unknown'} ${isBanned ? '<span style="color:#ff3366;">[BANNED]</span>' : ''}</div><div class="ur-email">${u.email || uid.substring(0,12)}</div></div><div style="text-align:right;margin-right:8px"><div class="ur-bal">৳${(u.balance || 0).toLocaleString('en')}</div></div><div class="admin-btn-row"><button class="add-bal-btn" onclick="openAddBal('${uid}','${(u.name || 'User').replace(/'/g, "\\'")}',${u.balance || 0},true)">+ Add</button><button class="sub-bal-btn" onclick="openAddBal('${uid}','${(u.name || 'User').replace(/'/g, "\\'")}',${u.balance || 0},false)">− Sub</button>${!isBanned ? `<button class="sub-bal-btn" style="background:rgba(255,51,102,0.15);" onclick="banUserByIdFromList('${uid}')">🚫 Ban</button>` : `<button class="add-bal-btn" style="background:rgba(0,255,136,0.15);" onclick="unbanUserByIdFromList('${uid}')">✅ Unban</button>`}</div></div>`; }).join(''); } catch(e) { console.error(e); } };
+window.confirmAddBal = async function() { const amt = parseFloat(document.getElementById('ablAmount').value); if (!amt || amt <= 0) { toast('⚠️ Valid amount দিন', true); return; } if (_ablIsAdd && amt > MAX_ADMIN_BALANCE_ADD) { toast(`⚠️ Maximum allowed balance add limit is ${MAX_ADMIN_BALANCE_ADD.toLocaleString('en')} TK`, true); return; } if (!_ablUid || !window._db) return; const isSim = _ablUid.startsWith('sim_'); if (isSim) { let simulated = getSimulatedUsers(); const index = simulated.findIndex(u => u.uid === _ablUid); if (index !== -1) { let newBal = _ablIsAdd ? _ablCurBal + amt : Math.max(0, _ablCurBal - amt); simulated[index].balance = newBal; saveSimulatedUsers(simulated); toast(`✅ Simulated user balance updated: ৳${amt.toLocaleString('en')}`, false); closeAddBal(); loadAdminUsers(); } else { toast('❌ Simulated user not found', true); } return; } let newBal = _ablIsAdd ? _ablCurBal + amt : Math.max(0, _ablCurBal - amt); try { await window._update(window._ref(window._db, 'users/' + _ablUid), { balance: newBal }); toast(`✅ Balance ${_ablIsAdd ? 'added' : 'subtracted'}: ৳${amt.toLocaleString('en')}`, false); closeAddBal(); loadAdminUsers(); loadRealLeaderboard(); } catch(e) { console.error(e); toast('❌ Error updating balance', true); } };
+
 window.banUserByIdFromList = function(uid) { const reason = prompt('Ban reason:'); if (reason === null) return; let banned = getBannedUsersFromLocal(); if (!banned.includes(uid)) { banned.push(uid); saveBannedUsersToLocal(banned); toast(`🚫 User banned. Reason: ${reason}`, false); loadAdminUsers(); updateBannedUsersList(); if (window._curUser && window._curUser.uid === uid) logout(); } };
 window.unbanUserByIdFromList = function(uid) { let banned = getBannedUsersFromLocal(); if (banned.includes(uid)) { banned = banned.filter(id => id !== uid); saveBannedUsersToLocal(banned); toast(`✅ User unbanned`, false); loadAdminUsers(); updateBannedUsersList(); } };
+
 window.loadAdminMessages = async function() { /* unchanged */ };
-window.loadDepositRequests = async function() { /* unchanged but will show new TxID */ };
+window.loadDepositRequests = async function() { /* unchanged */ };
 window.loadWithdrawalRequests = async function() { /* unchanged */ };
 window.submitWithdraw = async function(method) { /* unchanged */ };
 window.acceptWithdrawal = async function(wdId, userId, amount) { /* unchanged */ };
@@ -1376,8 +1543,6 @@ window.closeReferralModal = function() { document.getElementById('referralModal'
 window.copyReferralLink = function() { const link = document.getElementById('referralLinkText').textContent; navigator.clipboard.writeText(link); toast('✅ Referral link copied!', false); };
 window.processReferral = async function(referralCode, newUserId) { /* unchanged */ };
 window.checkAndProcessReferralBonus = async function(userId) { /* unchanged */ };
-window._saveBetHistory = async function(entry) { /* unchanged */ };
-window.loadBetHistory = async function() { /* unchanged */ };
 window.loadTransactionHistory = async function() { /* unchanged */ };
 window.switchTxTab = function(tab) { /* unchanged */ };
 window.toggleTxPrivacy = function() { /* unchanged */ };
